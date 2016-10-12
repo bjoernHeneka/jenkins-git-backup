@@ -33,7 +33,7 @@ A regular cron task will then push the changes you made in frontend regularly.
 version: '2'
 services:
   jenkins-volume:
-    image: bjoernheneka/jenkins-volume:latest
+    image: bjoernheneka/jenkins-git-backup:volume
     environment:
       GIT_PROTOCOL: https
       GIT_USERNAME: johndoe
@@ -46,7 +46,7 @@ services:
       GIT_USER_NAME: John doe
 
   jenkins:
-    image: bjoernheneka/jenkins-master:latest
+    image: bjoernheneka/jenkins-git-backup:master
     volumes_from:
       - jenkins-volume
     ports:
@@ -61,7 +61,7 @@ services:
 version: '2'
 services:
   jenkins-volume:
-    image: bjoernheneka/jenkins-volume:latest
+    image: bjoernheneka/jenkins-git-backup:volume
     environment:
       GIT_PROTOCOL: ssh
       GIT_HOST: my.githost.com
@@ -74,7 +74,7 @@ services:
       - ./keys:/ssh-keys
 
   jenkins:
-    image: bjoernheneka/jenkins-master:latest
+    image: bjoernheneka/jenkins-git-backup:master
     volumes_from:
       - jenkins-volume
     ports:
