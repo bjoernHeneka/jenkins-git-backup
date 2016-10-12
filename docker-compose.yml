@@ -1,0 +1,23 @@
+version: '2'
+services:
+  jenkins-volume:
+    image: bjoernheneka/jenkins-volume
+    environment:
+      GIT_PROTOCOL: ssh
+      GIT_USERNAME: johndoe
+      GIT_PASSWORD: '!myS3Cr3T?'
+      GIT_HOST: my.githost.com
+      GIT_SOURCE: https://my.githost.com/repo/source.git
+      GIT_BACKUP: https://my.githost.com/repo/backup.git
+      SCHEDULE: '*/5 * * * *'
+      GIT_USER_EMAIL: john.doe@example.com
+      GIT_USER_NAME: John doe
+
+  jenkins:
+    image: bjoernheneka/jenkins-master
+    volumes_from:
+      - jenkins-volume
+    ports:
+      - 8080:8080
+    depends_on:
+      - jenkins-volume

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd /var/jenkins_home
+
+git add --all .
+git commit -am"regular backup task of jenkins home folder"
+git push backup master
