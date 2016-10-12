@@ -13,7 +13,7 @@ RUN mkdir -p /etc/periodic/jenkins && \
 
 ADD ./crons/backup_cron /etc/periodic/jenkins/backup_cron
 ADD ./templates /templates
-COPY init.sh /init.sh
+COPY init.sh /root/init.sh
 
 VOLUME /var/jenkins_home
 
@@ -24,6 +24,6 @@ ENV GIT_USER_NAME "John Doe"
 RUN chmod +x /etc/periodic/jenkins/backup_cron \
     && chown -R 1000:1000 /var/jenkins_home \
     && git config --global credential.helper store \
-    && chmod +x /init.sh
+    && chmod +x /root/init.sh
 
-CMD [ "/bin/sh", "/init.sh" ]
+CMD [ "/bin/sh", "/root/init.sh" ]
