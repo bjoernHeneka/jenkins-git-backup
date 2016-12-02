@@ -1,4 +1,4 @@
-FROM jenkins:2.19.3
+FROM jenkins:2.19.4
 
 MAINTAINER Bjoern Heneka <bheneka@codebee.de>
 
