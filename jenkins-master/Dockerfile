@@ -1,4 +1,4 @@
-FROM jenkins:2.46.2-alpine
+FROM jenkins:2.46.3-alpine
 
 MAINTAINER Bjoern Heneka <bheneka@codebee.de>
 
