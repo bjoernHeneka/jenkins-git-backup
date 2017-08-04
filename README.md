@@ -10,8 +10,8 @@ A regular cron task will then push the changes you made in frontend regularly.
 ### Configurations
 
 ```
-    GIT_PROTOCOL: https|ssh 
-    GIT_USERNAME: johndoe (Username for pulling and pushing from and to repository) 
+    GIT_PROTOCOL: https|ssh
+    GIT_USERNAME: johndoe (Username for pulling and pushing from and to repository)
         -> required for https
     GIT_PASSWORD: '!myS3Cr3T?' (Password for pulling and pushing from and to repository)
         -> required for https
@@ -44,6 +44,8 @@ services:
       SCHEDULE: '*/5 * * * *'
       GIT_USER_EMAIL: john.doe@example.com
       GIT_USER_NAME: John doe
+    volumes:
+      - ./jenkins-home:/var/jenkins_home
 
   jenkins:
     image: bjoernheneka/jenkins-master:release-2.60.2
@@ -72,6 +74,7 @@ services:
       GIT_USER_NAME: John doe
     volumes:
       - ./keys:/ssh-keys
+      - ./jenkins-home:/var/jenkins_home
 
   jenkins:
     image: bjoernheneka/jenkins-master:release-2.60.2
