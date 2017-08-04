@@ -23,17 +23,23 @@ else
     chown -R 1000.1000 /var/jenkins_home
 fi
 
-
-### Initally clone the source repository
-if [ ! -z $GIT_SOURCE ]; then
-    rm -rf /var/jenkins_home/
-    mkdir -p /var/jenkins_home
-    chown -R 1000.1000 /var/jenkins_home
-    cd /var/jenkins_home
-    git clone ${GIT_SOURCE} .
+if [ -d /var/jenkins_home/.git ]; then
+  LOCAL_GIT=`git config -f /var/jenkins_home/.git/config --get remote.origin.url`
+  echo "Volume already there. Try to update from remote ${LOCAL_GIT} ."
+  git pull origin master
 else
-    echo "No source repository given. Using default installation"
+  ### Initally clone the source repository
+  if [ ! -z $GIT_SOURCE ]; then
+      rm -rf /var/jenkins_home/
+      mkdir -p /var/jenkins_home
+      chown -R 1000.1000 /var/jenkins_home
+      cd /var/jenkins_home
+      git clone ${GIT_SOURCE} .
+  else
+      echo "No source repository given. Using default installation"
+  fi
 fi
+
 
 ### Configure backup repository
 if [ ! -z $GIT_BACKUP ]; then
@@ -44,7 +50,14 @@ if [ ! -z $GIT_BACKUP ]; then
         git init
     fi
 
-    git remote add backup ${GIT_BACKUP}
+    LOCAL_BACKUP_GIT=`git config -f /var/jenkins_home/.git/config --get remote.backup.url`
+
+    if [ -z $LOCAL_BACKUP_GIT ]; then
+      git remote add backup ${GIT_BACKUP}
+    else
+      git remote set-url backup ${GIT_BACKUP}
+    fi
+
 
     ## initial backup
     git add --all .
