@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.89.3
+FROM jenkins/jenkins:lts
 
 MAINTAINER Bjoern Heneka <bheneka@codebee.de>
 
@@ -9,4 +9,4 @@ RUN chmod +x /usr/local/bin/init.sh
 
 USER ${user}
 
-ENTRYPOINT  ["/bin/tini", "--", "/usr/local/bin/init.sh"]
+ENTRYPOINT  ["/sbin/tini", "--", "/usr/local/bin/init.sh"]
