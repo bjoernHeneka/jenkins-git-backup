@@ -9,4 +9,4 @@ RUN chmod +x /usr/local/bin/init.sh
 
 USER ${user}
 
-ENTRYPOINT  ["/bin/tini", "--", "/usr/local/bin/init.sh"]
+ENTRYPOINT  ["/sbin/tini", "--", "/usr/local/bin/init.sh"]
