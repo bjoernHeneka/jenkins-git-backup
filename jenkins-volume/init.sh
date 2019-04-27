@@ -30,8 +30,7 @@ if [ -d /var/jenkins_home/.git ]; then
 else
   ### Initally clone the source repository
   if [ ! -z $GIT_SOURCE ]; then
-      rm -rf /var/jenkins_home/
-      mkdir -p /var/jenkins_home
+      rm -rf /var/jenkins_home/.*
       chown -R 1000.1000 /var/jenkins_home
       cd /var/jenkins_home
       git clone ${GIT_SOURCE} .
