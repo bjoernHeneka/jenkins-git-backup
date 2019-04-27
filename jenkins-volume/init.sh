@@ -8,7 +8,7 @@ if [ "${GIT_PROTOCOL}" = "ssh" ] && [ -d /ssh-keys ]; then
 
     mkdir -p /root/.ssh
     echo -e "Host ${GIT_HOST}\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
-    echo "    IdentityFile ssh-keys/git" >> /etc/ssh/ssh_config
+    echo "    IdentityFile /ssh-keys/git" >> /etc/ssh/ssh_config
 
     # Start ssh agent
     eval `ssh-agent -s`
