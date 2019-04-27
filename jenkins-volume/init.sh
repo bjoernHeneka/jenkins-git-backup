@@ -8,7 +8,7 @@ if [ "${GIT_PROTOCOL}" = "ssh" ] && [ -d /ssh-keys ]; then
 
     mkdir -p /root/.ssh
     echo -e "Host ${GIT_HOST}\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
-    echo "    IdentityFile ssh-keys/git" >> /etc/ssh/ssh_config
+    echo "    IdentityFile /ssh-keys/git" >> /etc/ssh/ssh_config
 
     # Start ssh agent
     eval `ssh-agent -s`
@@ -30,8 +30,7 @@ if [ -d /var/jenkins_home/.git ]; then
 else
   ### Initally clone the source repository
   if [ ! -z $GIT_SOURCE ]; then
-      rm -rf /var/jenkins_home/
-      mkdir -p /var/jenkins_home
+      rm -rf /var/jenkins_home/.*
       chown -R 1000.1000 /var/jenkins_home
       cd /var/jenkins_home
       git clone ${GIT_SOURCE} .
